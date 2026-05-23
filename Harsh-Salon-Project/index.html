@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harsh Hair Salon - Book Your Style Today</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav a {
+            margin-left: 2rem;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ff6b6b;
+        }
+
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6);
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .info-card i {
+            font-size: 3rem;
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+        }
+
+        .service-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .service-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,107,107,0.8), rgba(78,205,196,0.8));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .service-card:hover .service-image::after {
+            opacity: 1;
+        }
+
+        .service-image i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 2;
+        }
+
+        .service-card:hover .service-image i {
+            opacity: 1;
+        }
+
+        .service-content {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .service-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #ff6b6b;
+        }
+
+        .book-button {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.3s;
+        }
+
+        .book-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        .success-message {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        footer {
+            background: rgba(0,0,0,0.9);
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 5rem;
+        }
+
+        @media (max-width: 768px) {
+    header {
+        padding: 20px 10px;
+    }
+
+    .header-content {
+        display: flex;
+        flex-direction: column; /* Isse logo upar aur links niche aa jayenge */
+        align-items: center;
+        gap: 15px;
+    }
+
+    nav {
+        display: flex;
+        flex-wrap: wrap; /* Agar links zyada hain toh dusri line mein aa jayenge */
+        justify-content: center;
+        gap: 10px;
+    }
+
+    nav a {
+        margin: 5px;
+        font-size: 14px; /* Mobile par font thoda chota rakhein */
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Harsh Hair Salon</div>
+                <nav>
+                    <a href="#home">Home</a>
+                    <a href="#services">Services</a>
+                    <a href="#book">Book Now</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Transform Your Look</h1>
+            <p>Professional Haircuts & Beard Styling at Affordable Prices<br>Open 8AM - 8PM Daily</p>
+            <a href="#services" class="cta-button">Explore Services</a>
+        </div>
+    </section>
+
+    <section id="services" class="section">
+        <div class="container">
+            <h2 class="section-title">Salon Information</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Opening Hours</h3>
+                    <p>8:00 AM - 8:00 PM<br>Every Day</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-rupee-sign"></i>
+                    <h3>Haircut</h3>
+                    <p>Just ₹40</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-rupee-sign"></i>
+                    <h3>Beard Trim</h3>
+                    <p>Only ₹30</p>
+                </div>
+            </div>
+
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <!-- Haircut Services -->
+                <div class="service-card" onclick="bookAppointment('Classic Haircut', 40)">
+                    <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1574680178057-a4a60e2433c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                        <i class="fas fa-calendar-plus"></i>
+                    </div>
+                    <div class="service-content">
+                        <img src="classic.jpg" width="150" style="border-radius: 100px;"><h3 class="service-title">Classic Haircut</h3>
+                        <div class="service-price">₹40</div>
+                    </div>
+                </div>
+
+                <div class="service-card" onclick="bookAppointment('Modern Fade', 40)">
+                    <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1590149829286-eb865e2d8d78?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                        <i class="fas fa-calendar-plus"></i>
+                    </div>
+                    <div class="service-content">
+                        <img src="modern.jfif" width="150" style="border-radius: 100px;"><h3 class="service-title">Modern Fade</h3>
+                        <div class="service-price">₹40</div>
+                    </div>
+                </div>
+
+                <div class="service-card" onclick="bookAppointment('Buzz Cut', 40)">
+                    <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1625772299842-3a8c22326549?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                        <i class="fas fa-calendar-plus"></i>
+                    </div>
+                    <div class="service-content">
+                        <img src="Buzzz.jfif" width="150" style="border-radius: 50%;"><h3 class="service-title">Buzz Cut</h3>
+                        <div class="service-price">₹40</div>
+                    </div>
+                </div>
+
+                <!-- Beard Services -->
+                <div class="service-card" onclick="bookAppointment('Classic Beard Trim', 30)">
+                    <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1596964346808-50b5d0ef9b25?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                        <i class="fas fa-calendar-plus"></i>
+                    </div>
+                    <div class="service-content">
+                        <img src="Beard.jpg" width="150" style="border-radius: 50%;"><h3 class="service-title">Classic Beard Trim</h3>
+                        <div class="service-price">₹30</div>
+                    </div>
+                </div>
+
+                <div class="service-card" onclick="bookAppointment('Shape Up Beard', 30)">
+                    <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1633938018078-e3f7367fd1e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                        <i class="fas fa-calendar-plus"></i>
+                    </div>
+                    <div class="service-content">
+                        <img src="shape.webp" width="150" style="border-radius: 50%;"><h3 class="service-title">Shape Up Beard</h3>
+                        <div class="service-price">₹30</div>
+                    </div>
+                </div>
+
+                <div class="service-card" onclick="bookAppointment('Full Beard Grooming', 30)">
+                    <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1600511863254-878ba18992ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                        <i class="fas fa-calendar-plus"></i>
+                    </div>
+                    <div class="service-content">
+                        <img src="broming.jfif" width="150" style="border-radius: 100%;"><h3 class="service-title">Full Beard Grooming</h3>
+                        <div class="service-price">₹30</div>
+                    </div>
+                </div>
+                <div class="service-card" onclick="bookAppointment('Bleach', 100-150)">
+                    <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1600511863254-878ba18992ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                        <i class="fas fa-calendar-plus"></i>
+                    </div>
+                    <div class="service-content">
+                        <img src="bleach.jfif" width="150" style="border-radius: 100%;"><h3 class="service-title">Bleach</h3>
+                        <div class="service-price">₹100-150</div>
+                         </div>
+                </div>
+                <div class="service-card" onclick="bookAppointment('Face Massage', 150-200)">
+                    <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1600511863254-878ba18992ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                        <i class="fas fa-calendar-plus"></i>
+                    </div>
+                    <div class="service-content">
+                        <img src="FACE.jpg" width="150" style="border-radius: 100%;"><h3 class="service-title">Face Massage</h3>
+                        <div class="service-price">₹150-200</div>
+                         </div>
+                </div>
+                <div class="service-card" onclick="bookAppointment('Facial (Advanced / Gold / Diamond)', 800-1000)">
+                    <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1600511863254-878ba18992ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                        <i class="fas fa-calendar-plus"></i>
+                    </div>
+                    <div class="service-content">
+                        <img src="diamond.JFIF" width="150" style="border-radius: 50%;"><h3 class="service-title">Facial (Advanced / Gold / Diamond)</h3>
+                        <div class="service-price">₹800-1000</div>
+                        
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="serviceTitle">Book Appointment</h2>
+            <form id="bookingForm" action="https://formspree.io/f/xjgzrqrd" method="POST">
+                <div class="form-group">
+                    <label>Service</label>
+                    <input type="text" id="selectedService" name="Service" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="customerName"name="Customer_Name" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" id="phone"Name="Phone" required>
+                </div>
+                <div class="form-group">
+    <label>Select Date</label>
+    <input type="date" name="Date" required>
+</div>
+<div class="form-group">
+    <label>Select Time</label>
+    <select name="Time" required>
+        <option value="">Choose Time</option>
+        <option value="08:00 AM">08:00 AM</option>
+        <option value="09:00 AM">09:00 AM</option>
+        <option value="10:00 AM">10:00 AM</option>
+        <option value="11:00 AM">11:00 AM</option>
+        <option value="12:00 PM">12:00 PM</option>
+        <option value="01:00 PM">01:00 PM</option>
+        <option value="02:00 PM">02:00 PM</option>
+        <option value="03:00 PM">03:00 PM</option>
+        <option value="04:00 PM">04:00 PM</option>
+        <option value="05:00 PM">05:00 PM</option>
+        <option value="06:00 PM">06:00 PM</option>
+        <option value="07:00 PM">07:00 PM</option>
+        <option value="08:00 PM">08:00 PM</option>
+    </select>
+</div>
+                <button type="submit" class="book-button">Book Appointment</button>
+                <div id="successMessage" class="success-message">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Appointment Booked Successfully!</h3>
+                    <p>We'll call you to confirm. Thank you!</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer id="contact">
+        <div class="container">
+            <h3>Harsh Hair Salon</h3>
+            <p>📍 Your Local Address: Main Chaurha bhujauli bazar, khadda kushinagar 274802 <br>📱 Contact: +91-7054499411,9935363375</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">© 2024 Harsh Hair Salon. All rights reserved.</p>
+        </div>
+    </footer><script>
+        let selectedServiceName = '';
+        let selectedServicePrice = 0;
+
+        // Book appointment function
+        function bookAppointment(serviceName, price) {
+            selectedServiceName = serviceName;
+            selectedServicePrice = price;
+            
+            document.getElementById('selectedService').value = serviceName + ' (₹' + price + ')';
+            document.getElementById('serviceTitle').textContent = 'Book ' + serviceName;
+            document.getElementById('bookingModal').style.display = 'block';
+            
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('appointmentDate').min = today;
+        }
+
+        // Close modal function
+        function closeModal() {
+            document.getElementById('bookingModal').style.display = 'none';
+            document.getElementById('bookingForm').reset();
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        // Form submission
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+          
+            // Line 550
+bookingForm.addEventListener('submit', (e) => {
+    bookingModal.style.display = 'none';
+});            
+            if (name && phone && date && time) {
+                // Simulate booking (in real app, send to backend)
+                console.log('Booking Details:', {
+                    service: selectedServiceName,
+                    price: selectedServicePrice,
+                    customer: name,
+                    phone: phone,
+                    date: date,
+                    time: time
+                });
+                
+                // Show success message
+                document.getElementById('successMessage').style.display = 'block';
+                
+                // Hide success message after 5 seconds and close modal
+                setTimeout(() => {
+                    closeModal();
+                }, 4000);
+                
+                // Optional: Send WhatsApp message (uncomment and customize)
+                /*
+                const message = `New Booking!\nService: ${selectedServiceName}\nCustomer: ${name}\nPhone: ${phone}\nDate: ${date}\nTime: ${time}\nPrice: ₹${selectedServicePrice}`;
+                const whatsappUrl = `https://wa.me/91XXXXXXXXXX?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+                */
+            }
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('bookingModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Set today's date as default
+        window.addEventListener('load', function() {
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            document.getElementById('appointmentDate').value = formattedDate;
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 5px 30px rgba(0,0,0,0.15)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            }
+        });
+
+        // Add loading animation for images
+        document.querySelectorAll('.service-image').forEach(img => {
+            img.addEventListener('load', function() {
+                this.style.opacity = '1';
+            });
+            img.style.opacity = '0.8';
+            img.style.transition = 'opacity 0.3s';
+        });
+    </script>
+</body>
+</html>
