@@ -496,7 +496,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h2 id="serviceTitle">Book Appointment</h2>
-            <form id="bookingForm" action="https://formspree.io/f/xjgzoqrd" method="POST">
+            <form id="bookingForm">
     <div class="form-group">
         <label>Service</label>
         <select id="selectedService" name="Service" required onchange="updatePrice()">
@@ -664,18 +664,31 @@ bookingForm.addEventListener('submit', (e) => {
         });
 <script>
 document.getElementById('bookingForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Formspree ke default page par jaane se rokne ke liye
+
+    const form = e.target;
     const serviceSelect = document.getElementById('selectedService');
     const selectedPrice = serviceSelect.options[serviceSelect.selectedIndex].getAttribute('data-price');
     const customerName = document.getElementById('customerName').value;
     
     const upiId = "8745862767@axl"; 
     const merchantName = "Harsh Hair Salon";
-
     const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(merchantName)}&am=${selectedPrice}&cu=INR&tn=${encodeURIComponent('Salon-' + customerName)}`;
 
-    setTimeout(() => {
+    // Background mein Formspree par data bhejna (AJAX Fetch)
+    fetch("https://formspree.io/f/xjgzoqrd", {
+        method: "POST",
+        body: new FormData(form),
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(response => {
+        // Data successfully jaane ke baad payment open karna
         window.location.href = upiUrl;
-    }, 800); 
+    }).catch(error => {
+        // Agar internet slow ho, tab bhi payment par bhej dena
+        window.location.href = upiUrl;
+    });
 });
 </script>
 </body>
