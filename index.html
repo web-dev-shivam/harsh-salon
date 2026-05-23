@@ -496,49 +496,54 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h2 id="serviceTitle">Book Appointment</h2>
-            <form id="bookingForm" action="https://formspree.io/f/xjgzrqrd" method="POST">
-                <div class="form-group">
-                    <label>Service</label>
-                    <input type="text" id="selectedService" name="Service" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" id="customerName"name="Customer_Name" required>
-                </div>
-                <div class="form-group">
-                    <label>Phone</label>
-                    <input type="tel" id="phone"Name="Phone" required>
-                </div>
-                <div class="form-group">
-    <label>Select Date</label>
-    <input type="date" name="Date" required>
-</div>
-<div class="form-group">
-    <label>Select Time</label>
-    <select name="Time" required>
-        <option value="">Choose Time</option>
-        <option value="08:00 AM">08:00 AM</option>
-        <option value="09:00 AM">09:00 AM</option>
-        <option value="10:00 AM">10:00 AM</option>
-        <option value="11:00 AM">11:00 AM</option>
-        <option value="12:00 PM">12:00 PM</option>
-        <option value="01:00 PM">01:00 PM</option>
-        <option value="02:00 PM">02:00 PM</option>
-        <option value="03:00 PM">03:00 PM</option>
-        <option value="04:00 PM">04:00 PM</option>
-        <option value="05:00 PM">05:00 PM</option>
-        <option value="06:00 PM">06:00 PM</option>
-        <option value="07:00 PM">07:00 PM</option>
-        <option value="08:00 PM">08:00 PM</option>
-    </select>
-</div>
-                <button type="submit" class="book-button">Book Appointment</button>
-                <div id="successMessage" class="success-message">
-                    <i class="fas fa-check-circle"></i>
-                    <h3>Appointment Booked Successfully!</h3>
-                    <p>We'll call you to confirm. Thank you!</p>
-                </div>
-            </form>
+            <form id="bookingForm" action="https://formspree.io/f/xjgzoqrd" method="POST">
+    <div class="form-group">
+        <label>Service</label>
+        <select id="selectedService" name="Service" required onchange="updatePrice()">
+            <option value="Choose" data-price="0">Choose Time</option>
+            <option value="Shape Up Beard" data-price="30">Shape Up Beard (₹30)</option>
+            <option value="Classic Haircut" data-price="100">Classic Haircut (₹100)</option>
+            <option value="Facial" data-price="150">Face Massage & Facial (₹150)</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" id="customerName" name="Customer_Name" required placeholder="Your Name">
+    </div>
+
+    <div class="form-group">
+        <label>Phone</label>
+        <input type="tel" id="phone" name="Phone" required placeholder="Your Phone Number">
+    </div>
+
+    <div class="form-group">
+        <label>Select Date</label>
+        <input type="date" name="Date" required>
+    </div>
+
+    <div class="form-group">
+        <label>Select Time</label>
+        <select name="Time" required>
+            <option value="">Choose Time</option>
+            <option value="08:00 AM">08:00 AM</option>
+            <option value="09:00 AM">09:00 AM</option>
+            <option value="10:00 AM">10:00 AM</option>
+            <option value="11:00 AM">11:00 AM</option>
+            <option value="12:00 PM">12:00 PM</option>
+            <option value="01:00 PM">01:00 PM</option>
+            <option value="02:00 PM">02:00 PM</option>
+            <option value="03:00 PM">03:00 PM</option>
+            <option value="04:00 PM">04:00 PM</option>
+            <option value="05:00 PM">05:00 PM</option>
+            <option value="06:00 PM">06:00 PM</option>
+            <option value="07:00 PM">07:00 PM</option>
+            <option value="08:00 PM">08:00 PM</option>
+        </select>
+    </div>
+
+    <button type="submit" class="book-button">Pay & Book Appointment</button>
+</form>
         </div>
     </div>
 
@@ -657,6 +662,21 @@ bookingForm.addEventListener('submit', (e) => {
             img.style.opacity = '0.8';
             img.style.transition = 'opacity 0.3s';
         });
-    </script>
+<script>
+document.getElementById('bookingForm').addEventListener('submit', function(e) {
+    const serviceSelect = document.getElementById('selectedService');
+    const selectedPrice = serviceSelect.options[serviceSelect.selectedIndex].getAttribute('data-price');
+    const customerName = document.getElementById('customerName').value;
+    
+    const upiId = "8745862767@axl"; 
+    const merchantName = "Harsh Hair Salon";
+
+    const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(merchantName)}&am=${selectedPrice}&cu=INR&tn=${encodeURIComponent('Salon-' + customerName)}`;
+
+    setTimeout(() => {
+        window.location.href = upiUrl;
+    }, 800); 
+});
+</script>
 </body>
 </html>
